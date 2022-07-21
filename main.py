@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from telegram.constants import ParseMode
 
 
-async def create_and_send_message(payload):
+async def create_and_send_message(payload, telegram_token, chat_id):
     """Create and async send a message via bot."""
     telegram_token = os.getenv('TELEGRAM_BOT_TOKEN')
     chat_id = os.getenv('TELEGRAM_CHAT_ID')
@@ -34,6 +34,8 @@ def main():
     """Main function."""
     load_dotenv()
     devman_token = os.getenv("DEVMAN_TOKEN")
+    telegram_token = os.getenv('TELEGRAM_BOT_TOKEN')
+    chat_id = os.getenv('TELEGRAM_CHAT_ID')
     params = {}
     while True:
         try:
@@ -55,7 +57,11 @@ def main():
             else:
                 timestamp = payload['last_attempt_timestamp']
                 params = {}
-                asyncio.run(create_and_send_message(payload))
+                asyncio.run(create_and_send_message(
+                    payload,
+                    telegram_token,
+                    chat_id
+                ))
         except requests.exceptions.ReadTimeout as err:
             logging.error(err)
         except requests.exceptions.ConnectionError as err:
