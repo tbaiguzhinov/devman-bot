@@ -9,15 +9,15 @@ from dotenv import load_dotenv
 from telegram.constants import ParseMode
 
 
-async def create_and_send_message(data):
+async def create_and_send_message(payload):
     """Create and async send a message via bot."""
     telegram_token = os.getenv('TELEGRAM_BOT_TOKEN')
     chat_id = os.getenv('TELEGRAM_CHAT_ID')
 
     bot = telegram.Bot(telegram_token)
-    lesson = data['new_attempts'][-1]['lesson_title']
-    lesson_url = data['new_attempts'][-1]['lesson_url']
-    if data['new_attempts'][-1]['is_negative']:
+    lesson = payload['new_attempts'][-1]['lesson_title']
+    lesson_url = payload['new_attempts'][-1]['lesson_url']
+    if payload['new_attempts'][-1]['is_negative']:
         result = "К сожалению, в работе нашлись ошибки."
     else:
         result = "Преподавателю всё понравилось, можно приступать к следующему уроку!"
@@ -46,16 +46,16 @@ def main():
                 params=params,
             )
             response.raise_for_status()
-            data = response.json()
-            if data['status'] == 'timeout':
-                timestamp = data['timestamp_to_request']
+            payload = response.json()
+            if payload['status'] == 'timeout':
+                timestamp = payload['timestamp_to_request']
                 params = {
                     "timestamp": timestamp,
                 }
             else:
-                timestamp = data['last_attempt_timestamp']
+                timestamp = payload['last_attempt_timestamp']
                 params = {}
-                asyncio.run(create_and_send_message(data))
+                asyncio.run(create_and_send_message(payload))
         except requests.exceptions.ReadTimeout as err:
             logging.error(err)
         except requests.exceptions.ConnectionError as err:
