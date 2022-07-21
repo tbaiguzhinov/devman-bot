@@ -15,7 +15,7 @@
 Для корректной работы кода, необходимы 3 обязательные переменные окружения. Чтобы их определить, создайте файл `.env` рядом с `main.py` и запишите туда данные в таком формате: `ПЕРЕМЕННАЯ=значение`.
 
 * `DEVMAN_TOKEN` - Токен API, который доступен на странице [API Девмана](https://dvmn.org/api/docs/) после авторизации на сайте.
-`TELEGRAM_BOT_TOKEN` - токен Telegram бота, можно получить у [BotFather](https://t.me/botfather#:~:text=BotFather%20is%20the%20one%20bot,BotFather%20right%20away.) при регистрации бота;
+* `TELEGRAM_BOT_TOKEN` - токен Telegram бота, можно получить у [BotFather](https://t.me/botfather#:~:text=BotFather%20is%20the%20one%20bot,BotFather%20right%20away.) при регистрации бота;
 * `TELEGRAM_CHAT_ID`- ваш ID в Телеграм. Чтобы его получить, напишите в Telegram боту @userinfobot.
 
 ## Цели проекта
