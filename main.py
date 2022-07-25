@@ -8,12 +8,12 @@ from dotenv import load_dotenv
 from telegram.constants import PARSEMODE_MARKDOWN
 
 
-def create_and_send_message(payload, telegram_token, chat_id):
-    """Create and async send a message via bot."""
+def create_and_send_message(works_and_reviews, telegram_token, chat_id):
+    """Create and send a message via bot."""
     bot = telegram.Bot(telegram_token)
-    lesson = payload['new_attempts'][-1]['lesson_title']
-    lesson_url = payload['new_attempts'][-1]['lesson_url']
-    if payload['new_attempts'][-1]['is_negative']:
+    lesson = works_and_reviews['new_attempts'][-1]['lesson_title']
+    lesson_url = works_and_reviews['new_attempts'][-1]['lesson_url']
+    if works_and_reviews['new_attempts'][-1]['is_negative']:
         result = "К сожалению, в работе нашлись ошибки."
     else:
         result = "Преподавателю всё понравилось, можно приступать к следующему уроку!"
@@ -43,17 +43,17 @@ def main():
                 params=params,
             )
             response.raise_for_status()
-            payload = response.json()
-            if payload['status'] == 'timeout':
-                timestamp = payload['timestamp_to_request']
+            works_and_reviews = response.json()
+            if works_and_reviews['status'] == 'timeout':
+                timestamp = works_and_reviews['timestamp_to_request']
                 params = {
                     "timestamp": timestamp,
                 }
             else:
-                timestamp = payload['last_attempt_timestamp']
+                timestamp = works_and_reviews['last_attempt_timestamp']
                 params = {}
                 create_and_send_message(
-                    payload,
+                    works_and_reviews,
                     telegram_token,
                     chat_id
                 )
