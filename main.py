@@ -1,6 +1,7 @@
 import logging
 import os
 import time
+import traceback
 
 import requests
 import telegram
@@ -53,6 +54,7 @@ def main():
     logger.warning("Бот запущен")
     while True:
         try:
+            x = 0/0
             response = requests.get(
                 "https://dvmn.org/api/long_polling/",
                 headers={
@@ -87,7 +89,7 @@ def main():
             raise
         except Exception as err:
             logger.error("Бот упал с ошибкой")
-            logger.error(err)
+            logger.error(traceback.format_exc())
             time.sleep(5)
 
 
