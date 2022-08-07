@@ -54,7 +54,6 @@ def main():
     logger.warning("Бот запущен")
     while True:
         try:
-            x = 0/0
             response = requests.get(
                 "https://dvmn.org/api/long_polling/",
                 headers={
