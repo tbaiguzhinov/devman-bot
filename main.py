@@ -1,17 +1,17 @@
 import logging
 import os
 import time
-import traceback
 
 import requests
 import telegram
 from dotenv import load_dotenv
 from telegram.constants import PARSEMODE_MARKDOWN
 
-
 logger = logging.getLogger('Logger')
 
+
 class TelegramLogsHandler(logging.Handler):
+    """Logger handler class."""
 
     def __init__(self, tg_bot, chat_id):
         super().__init__()
@@ -78,14 +78,14 @@ def main():
                     works_and_reviews,
                     chat_id
                 )
-        except requests.exceptions.ReadTimeout as err:
+        except requests.exceptions.ReadTimeout:
             logger.exception("Бот упал с ошибкой")
-        except requests.exceptions.ConnectionError as err:
+        except requests.exceptions.ConnectionError:
             logger.exception("Бот упал с ошибкой")
             time.sleep(5)
         except KeyboardInterrupt:
             raise
-        except Exception as err:
+        except Exception:
             logger.exception("Бот упал с ошибкой")
             time.sleep(5)
 
