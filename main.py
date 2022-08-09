@@ -78,17 +78,14 @@ def main():
                     chat_id
                 )
         except requests.exceptions.ReadTimeout as err:
-            logger.error("Бот упал с ошибкой")
-            logger.error(err)
+            logger.exception("Бот упал с ошибкой")
         except requests.exceptions.ConnectionError as err:
-            logger.error("Бот упал с ошибкой")
-            logger.error(err)
+            logger.exception("Бот упал с ошибкой")
             time.sleep(5)
         except KeyboardInterrupt:
             raise
         except Exception as err:
-            logger.error("Бот упал с ошибкой")
-            logger.error(traceback.format_exc())
+            logger.exception("Бот упал с ошибкой")
             time.sleep(5)
 
 
