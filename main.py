@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 from telegram.constants import PARSEMODE_MARKDOWN
 
 
+logger = logging.getLogger('Logger')
+
 class TelegramLogsHandler(logging.Handler):
 
     def __init__(self, tg_bot, chat_id):
@@ -48,7 +50,6 @@ def main():
     bot = telegram.Bot(telegram_token)
     logger_bot = telegram.Bot(logger_bot_token)
 
-    logger = logging.getLogger('Logger')
     logger.addHandler(TelegramLogsHandler(logger_bot, chat_id))
 
     logger.warning("Бот запущен")
