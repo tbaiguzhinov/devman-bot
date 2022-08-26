@@ -19,6 +19,20 @@
 * `TELEGRAM_CHAT_ID`- ваш ID в Телеграм. Чтобы его получить, напишите в Telegram боту @userinfobot.
 * `LOGGER_BOT_TOKEN` - токен Telegram бота для отображения логов.
 
+## Запуск через Docker
+
+[Docker](https://www.docker.com/) должен быть установлен заранее.
+
+- Скачайте код командой  
+```git clone https://github.com/tbaiguzhinov/devman-bot```
+- Перейдите в папку с кодом  
+```cd devman-bot```
+- Создайте Docker образ командой  
+```docker build -t devman_bot .```
+- Установите переменные окружения по инструкции в предыдущем пункте.
+- Запустите Docker контейнер командой  
+```docker run -d --env-file .env devman_bot```
+
 ## Цели проекта
 
 Код написан в учебных целях — это урок в курсе по Python и веб-разработке на сайте [Devman](https://dvmn.org).
